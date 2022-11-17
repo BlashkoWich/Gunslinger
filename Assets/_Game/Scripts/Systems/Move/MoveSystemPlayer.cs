@@ -13,14 +13,18 @@ public class MoveSystemPlayer : IMoveSystem
 
     public override void CalculateDirection()
     {
-        float directionX = Input.GetAxis("Horizontal");
-        float directionZ = Input.GetAxis("Vertical");
+        float inputX = Input.GetAxis("Horizontal");
+        float inputZ = Input.GetAxis("Vertical");
 
-        _direction = new Vector3(directionX, _self.GetRigidbody.velocity.y, directionZ);
+        Transform transform = _self.GetRigidbody.transform;
+        Vector3 directionForward = transform.forward * inputZ;
+        Vector3 directionRight = transform.right * inputX;
+        
+        _direction = (directionForward + directionRight).normalized;
     }
 
     public override void Move()
     {
-        _self.GetRigidbody.velocity = _direction;
+        _self.GetRigidbody.velocity = _direction * _self.moveStats.speed;
     }
 }
