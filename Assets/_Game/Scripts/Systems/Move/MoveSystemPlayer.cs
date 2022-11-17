@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveSystemPlayer : IMoveSystem
@@ -9,22 +7,41 @@ public class MoveSystemPlayer : IMoveSystem
         _self = self;
     }
 
-    private Vector3 _direction;
+    private Vector3 _directionMove;
+    private Vector3 _directionAim;
 
     public override void CalculateDirection()
     {
-        float inputX = Input.GetAxis("Horizontal");
-        float inputZ = Input.GetAxis("Vertical");
+        CalculateMove();
+        CalculateAim();
 
-        Transform transform = _self.GetRigidbody.transform;
-        Vector3 directionForward = transform.forward * inputZ;
-        Vector3 directionRight = transform.right * inputX;
-        
-        _direction = (directionForward + directionRight).normalized;
+        void CalculateMove()
+        {
+            float inputX = Input.GetAxis("Horizontal");
+            float inputZ = Input.GetAxis("Vertical");
+
+            Transform transform = _self.GetRigidbody.transform;
+            Vector3 directionForward = transform.forward * inputZ;
+            Vector3 directionRight = transform.right * inputX;
+
+            _directionMove = (directionForward + directionRight).normalized;
+        }
+        void CalculateAim()
+        {
+            float axisX = Input.GetAxis("Mouse Y");
+            float axisY = Input.GetAxis("Mouse X");
+
+            Vector3 rotationCurrent = _self.GetRigidbody.transform.rotation.eulerAngles;
+            float rotationX = rotationCurrent.x + axisX;
+            float rotationY = rotationCurrent.y + axisY;
+            Vector3 rotationTarget = new Vector3(rotationCurrent.x, rotationY,rotationX);
+            _directionAim = rotationTarget;
+        }
     }
 
     public override void Move()
     {
-        _self.GetRigidbody.velocity = _direction * _self.moveStats.speed;
+        _self.GetRigidbody.velocity = _directionMove * _self.moveStats.speed * Time.deltaTime;
+        _self.GetRigidbody.MoveRotation(Quaternion.Euler(_directionAim));
     }
 }
