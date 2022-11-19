@@ -76,6 +76,9 @@ public class Player : MonoBehaviour, IMovable, IAimable, IAttacker, IVisualizabl
         }
     }
     public bool IsPlayerTeam => healthStats.isPlayerTeam;
+    [SerializeField]
+    private Transform _weaponPoint;
+    public Transform GetWeaponPoint => _weaponPoint;
     #endregion
     #region Visual
     private VisualSystem _visualSystem;
@@ -129,6 +132,7 @@ public class Player : MonoBehaviour, IMovable, IAimable, IAttacker, IVisualizabl
         moveStats = playerConfig.GetMoveStats;
         GetVisualSystem.SpawnVisual();
         healthStats = playerConfig.GetHealthStats;
+        GetWeaponSystem.ChangeWeaponSpawn(playerConfig.GetWeapon);
     }
 
     private void Update()

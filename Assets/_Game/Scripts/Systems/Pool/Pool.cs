@@ -49,7 +49,6 @@ public class Pool
                 {
                     return poolObject;
                 }
-
                 void EndLifeTime()
                 {
                     pool.poolObject.OnAddToPool -= EndLifeTime;
@@ -105,9 +104,9 @@ public class Pool
 
         List<IPoolable> poolObject = new List<IPoolable>();
 
+        name += "(Clone)";
         foreach (var pool in _nodes)
         {
-            name += "(Clone)";
             if (pool.isReady && pool.poolObject.GetName == name)
             {
                 poolObject.Add(pool.poolObject);
@@ -183,6 +182,18 @@ public class Pool
         for (int i = 0; i < _nodes.Count; i++)
         {
             if (_nodes[i].isReady == true && _nodes[i].poolObject.GetName == name)
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+    public int GetCountActivateFreeObjects()
+    {
+        int count = 0;
+        for (int i = 0; i < _nodes.Count; i++)
+        {
+            if (_nodes[i].isReady == true)
             {
                 count++;
             }

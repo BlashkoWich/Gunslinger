@@ -10,8 +10,11 @@ public class ManagersContainer : MonoBehaviour
     private VisualManager _visualManager;
     [SerializeField]
     private LevelManager _levelManager;
+    [SerializeField]
+    private WeaponManager _weaponManager;
 
     public PlayerManager GetPlayerManager => _playerManager;
     public VisualManager GetVisualManager => _visualManager;
     public LevelManager GetLevelManager => _levelManager;
+    public WeaponManager GetWeaponManager => _weaponManager;
 }

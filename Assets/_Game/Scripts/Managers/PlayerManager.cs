@@ -17,5 +17,6 @@ public class PlayerManager : MonoBehaviour
         Transform playerSpawnpoint = _managersContainer.GetLevelManager.GetLevel.GetPlayerSpawnpoint;
         player = Instantiate(_playerPrefab, playerSpawnpoint.position, Quaternion.identity);
         _managersContainer.GetVisualManager.Subscribe(player);
+        _managersContainer.GetWeaponManager.Subscribe(player);
     }
 }
