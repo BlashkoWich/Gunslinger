@@ -33,6 +33,6 @@ public abstract class IAttackSystem
     }
     protected void RestoreCooldown()
     {
-        _cooldown = _self.GetWeaponSystem.weapon.GetWeaponConfig.GetWeaponStats.cooldown;
+        _cooldown = _self.GetWeaponSystem.weapon.weaponStats.cooldown;
     }
 }

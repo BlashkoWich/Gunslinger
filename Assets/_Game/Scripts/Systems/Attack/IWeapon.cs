@@ -7,5 +7,14 @@ public abstract class IWeapon : MonoBehaviour
     [SerializeField]
     private WeaponConfig _weaponConfig;
 
-    public WeaponConfig GetWeaponConfig => _weaponConfig;
+    public WeaponStats weaponStats { get; private set; }
+
+    private void Start()
+    {
+        Initialize(_weaponConfig);
+    }
+    public void Initialize(WeaponConfig weaponConfig)
+    {
+        weaponStats = weaponConfig.GetWeaponStats;
+    }
 }

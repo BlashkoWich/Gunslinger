@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IMovable, IAimable, IAttacker, IVisualizable
+public class Player : MonoBehaviour, IMovable, IAimable, IAttacker, IVisualizable, IHealthable
 {
     [SerializeField]
     private PlayerConfig _playerConfig;
@@ -95,6 +95,24 @@ public class Player : MonoBehaviour, IMovable, IAimable, IAttacker, IVisualizabl
     public Transform GetVisualPoint => _visualPoint;
     public IVisualisator GetVisualisatorPrefab => _playerConfig.GetVisualisatorPrefab;
     #endregion
+    #region Health
+    public HealthStats healthStats { get; set; }
+
+    [SerializeField]
+    private HealthSystem _healthSystem;
+    public HealthSystem GetHealthSystem
+    {
+        get
+        {
+            if(_healthSystem == null)
+            {
+                _healthSystem = new HealthSystem(this);
+            }
+
+            return _healthSystem;
+        }
+    }
+    #endregion
 
     private void Start()
     {
@@ -105,6 +123,7 @@ public class Player : MonoBehaviour, IMovable, IAimable, IAttacker, IVisualizabl
     {
         moveStats = playerConfig.GetMoveStats;
         GetVisualSystem.SpawnVisual();
+        healthStats = playerConfig.GetHealthStats;
     }
 
     private void Update()

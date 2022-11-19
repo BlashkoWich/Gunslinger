@@ -11,8 +11,11 @@ public class PlayerConfig : ScriptableObject
     private AimStats _aimStats;
     [SerializeField]
     private IVisualisator _visualisatorPrefab;
+    [SerializeField]
+    private HealthStats _healthStats;
 
     public MoveStats GetMoveStats => _moveStats;
     public AimStats GetAimStats => _aimStats;
     public IVisualisator GetVisualisatorPrefab => _visualisatorPrefab;
+    public HealthStats GetHealthStats => _healthStats;
 }
