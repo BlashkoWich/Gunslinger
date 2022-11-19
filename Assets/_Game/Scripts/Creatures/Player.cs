@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IMovable, IAimable, IAttacker, IVisualizable, IHealthable
+public class Player : ICreature, IMovable, IAimable, IAttacker, IHealthable
 {
     [SerializeField]
     private PlayerConfig _playerConfig;
+    protected override ICreatureConfig GetConfig => _playerConfig;
 
     #region Move
     [SerializeField]
@@ -80,25 +81,6 @@ public class Player : MonoBehaviour, IMovable, IAimable, IAttacker, IVisualizabl
     private Transform _weaponPoint;
     public Transform GetWeaponPoint => _weaponPoint;
     #endregion
-    #region Visual
-    private VisualSystem _visualSystem;
-    public VisualSystem GetVisualSystem
-    {
-        get
-        {
-            if(_visualSystem == null)
-            {
-                _visualSystem = new VisualSystem(this);
-            }
-
-            return _visualSystem;
-        }
-    }
-    [SerializeField]
-    private Transform _visualPoint;
-    public Transform GetVisualPoint => _visualPoint;
-    public IVisualisator GetVisualisatorPrefab => _playerConfig.GetVisualisatorPrefab;
-    #endregion
     #region Health
     public HealthStats healthStats { get; set; }
 
@@ -127,8 +109,9 @@ public class Player : MonoBehaviour, IMovable, IAimable, IAttacker, IVisualizabl
         Initialize(_playerConfig);
     }
 
-    public void Initialize(PlayerConfig playerConfig)
+    public override void Initialize(ICreatureConfig creatureConfig)
     {
+        PlayerConfig playerConfig = (PlayerConfig)creatureConfig;
         moveStats = playerConfig.GetMoveStats;
         GetVisualSystem.SpawnVisual();
         healthStats = playerConfig.GetHealthStats;

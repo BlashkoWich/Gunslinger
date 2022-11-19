@@ -11,5 +11,6 @@ public class GameManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         _managersContainer.GetPlayerManager.SpawnPlayer();
+        _managersContainer.GetEnemyManager.SpawnStartEnemies();
     }
 }
