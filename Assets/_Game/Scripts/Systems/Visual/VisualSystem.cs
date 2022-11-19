@@ -21,16 +21,18 @@ public class VisualSystem
     {
         if(_visualisator == null)
         {
-            OnNeedVisual?.Invoke(_self.GetVisualisatorPrefab.name);
+            OnNeedVisual?.Invoke(_self.GetVisualisatorPrefab.GetName);
         }
-        if(_visualisator.name != _self.GetVisualisatorPrefab.name)
+        else if(_visualisator.name != _self.GetVisualisatorPrefab.GetName)
         {
             OnRemoveVisualisator?.Invoke(_visualisator);
-            OnNeedVisual?.Invoke(_self.GetVisualisatorPrefab.name);
+            OnNeedVisual?.Invoke(_self.GetVisualisatorPrefab.GetName);
         }
     }
     public void SetVisualisator(IVisualisator visualisator)
     {
         _visualisator = visualisator;
+        _visualisator.transform.position = _self.GetVisualPoint.position;
+        _visualisator.transform.parent = _self.GetVisualPoint;
     }
 }

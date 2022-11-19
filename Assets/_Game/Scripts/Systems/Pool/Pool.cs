@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Pool
 {
@@ -7,22 +8,22 @@ public class Pool
     public event Action<int, Type> OnNeedObjects;
     public event Action<IPoolable> OnAddObject;
 
-    private List<Node> _projectileNodes = new List<Node>();
+    private List<Node> _nodes = new List<Node>();
 
     private class Node
     {
         public Node(IPoolable newProjectile)
         {
             poolObject = newProjectile;
-            isReadyToShoot = true;
+            isReady = true;
         }
 
         public IPoolable poolObject;
-        public bool isReadyToShoot;
+        public bool isReady;
     }
     public void AddObject(IPoolable poolable)
     {
-        _projectileNodes.Add(new Node(poolable));
+        _nodes.Add(new Node(poolable));
         OnAddObject?.Invoke(poolable);
     }
 
@@ -36,12 +37,12 @@ public class Pool
 
         List<IPoolable> poolObject = new List<IPoolable>();
 
-        foreach (var pool in _projectileNodes)
+        foreach (var pool in _nodes)
         {
-            if (pool.isReadyToShoot && pool.poolObject.GetType() == type)
+            if (pool.isReady && pool.poolObject.GetType() == type)
             {
                 poolObject.Add(pool.poolObject);
-                pool.isReadyToShoot = false;
+                pool.isReady = false;
                 pool.poolObject.OnAddToPool += EndLifeTime;
 
                 if (poolObject.Count >= count)
@@ -52,7 +53,7 @@ public class Pool
                 void EndLifeTime()
                 {
                     pool.poolObject.OnAddToPool -= EndLifeTime;
-                    pool.isReadyToShoot = true;
+                    pool.isReady = true;
                     OnBackInPool?.Invoke();
                 }
             }
@@ -70,12 +71,12 @@ public class Pool
 
         List<IPoolable> poolObject = new List<IPoolable>();
 
-        foreach (var pool in _projectileNodes)
+        foreach (var pool in _nodes)
         {
-            if (pool.isReadyToShoot)
+            if (pool.isReady)
             {
                 poolObject.Add(pool.poolObject);
-                pool.isReadyToShoot = false;
+                pool.isReady = false;
                 pool.poolObject.OnAddToPool += EndLifeTime;
 
                 if (poolObject.Count >= count)
@@ -86,7 +87,7 @@ public class Pool
                 void EndLifeTime()
                 {
                     pool.poolObject.OnAddToPool -= EndLifeTime;
-                    pool.isReadyToShoot = true;
+                    pool.isReady = true;
                     OnBackInPool?.Invoke();
                 }
             }
@@ -104,12 +105,13 @@ public class Pool
 
         List<IPoolable> poolObject = new List<IPoolable>();
 
-        foreach (var pool in _projectileNodes)
+        foreach (var pool in _nodes)
         {
-            if (pool.isReadyToShoot && pool.poolObject.GetName == name)
+            name += "(Clone)";
+            if (pool.isReady && pool.poolObject.GetName == name)
             {
                 poolObject.Add(pool.poolObject);
-                pool.isReadyToShoot = false;
+                pool.isReady = false;
                 pool.poolObject.OnAddToPool += EndLifeTime;
 
                 if (poolObject.Count >= count)
@@ -120,7 +122,7 @@ public class Pool
                 void EndLifeTime()
                 {
                     pool.poolObject.OnAddToPool -= EndLifeTime;
-                    pool.isReadyToShoot = true;
+                    pool.isReady = true;
                     OnBackInPool?.Invoke();
                 }
             }
@@ -133,9 +135,9 @@ public class Pool
         get
         {
             int count = 0;
-            for (int i = 0; i < _projectileNodes.Count; i++)
+            for (int i = 0; i < _nodes.Count; i++)
             {
-                if (_projectileNodes[i].isReadyToShoot)
+                if (_nodes[i].isReady)
                 {
                     count++;
                 }
@@ -151,11 +153,11 @@ public class Pool
     private int GetSpecificCountFreePoolable(Type type)
     {
         int count = 0;
-        for (int i = 0; i < _projectileNodes.Count; i++)
+        for (int i = 0; i < _nodes.Count; i++)
         {
-            if (_projectileNodes[i].isReadyToShoot)
+            if (_nodes[i].isReady)
             {
-                if (_projectileNodes[i].GetType() == type)
+                if (_nodes[i].GetType() == type)
                 {
                     count++;
                 }
@@ -166,9 +168,9 @@ public class Pool
     public int GetCountActivateObjects()
     {
         int count = 0;
-        for (int i = 0; i < _projectileNodes.Count; i++)
+        for (int i = 0; i < _nodes.Count; i++)
         {
-            if (_projectileNodes[i].isReadyToShoot == false)
+            if (_nodes[i].isReady == false)
             {
                 count++;
             }
@@ -178,9 +180,9 @@ public class Pool
     public int GetCountActivateFreeObjects(string name)
     {
         int count = 0;
-        for (int i = 0; i < _projectileNodes.Count; i++)
+        for (int i = 0; i < _nodes.Count; i++)
         {
-            if (_projectileNodes[i].isReadyToShoot == true && _projectileNodes[i].poolObject.GetName == name)
+            if (_nodes[i].isReady == true && _nodes[i].poolObject.GetName == name)
             {
                 count++;
             }
@@ -191,11 +193,11 @@ public class Pool
     {
         List<T> poolables = new List<T>();
 
-        for (int i = 0; i < _projectileNodes.Count; i++)
+        for (int i = 0; i < _nodes.Count; i++)
         {
-            if (_projectileNodes[i].isReadyToShoot == false)
+            if (_nodes[i].isReady == false)
             {
-                poolables.Add((T)_projectileNodes[i].poolObject);
+                poolables.Add((T)_nodes[i].poolObject);
             }
         }
 

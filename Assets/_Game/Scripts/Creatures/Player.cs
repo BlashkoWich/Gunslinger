@@ -104,6 +104,7 @@ public class Player : MonoBehaviour, IMovable, IAimable, IAttacker, IVisualizabl
     public void Initialize(PlayerConfig playerConfig)
     {
         moveStats = playerConfig.GetMoveStats;
+        GetVisualSystem.SpawnVisual();
     }
 
     private void Update()

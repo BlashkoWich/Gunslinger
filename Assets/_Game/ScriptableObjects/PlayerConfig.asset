@@ -17,3 +17,4 @@ MonoBehaviour:
   _aimStats:
     CamSensX: 1
     CamSensY: 1
+  _visualisatorPrefab: {fileID: 1215178257032719198, guid: e2da9df907f44b649b958f71227917f0, type: 3}
