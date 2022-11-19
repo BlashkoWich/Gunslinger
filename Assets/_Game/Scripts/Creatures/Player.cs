@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IMovable, IAimable, IAttacker
+public class Player : MonoBehaviour, IMovable, IAimable, IAttacker, IVisualizable
 {
     [SerializeField]
     private PlayerConfig _playerConfig;
@@ -75,6 +75,25 @@ public class Player : MonoBehaviour, IMovable, IAimable, IAttacker
             return _attackSystemPlayer;
         }
     }
+    #endregion
+    #region Visual
+    private VisualSystem _visualSystem;
+    public VisualSystem GetVisualSystem
+    {
+        get
+        {
+            if(_visualSystem == null)
+            {
+                _visualSystem = new VisualSystem(this);
+            }
+
+            return _visualSystem;
+        }
+    }
+    [SerializeField]
+    private Transform _visualPoint;
+    public Transform GetVisualPoint => _visualPoint;
+    public IVisualisator GetVisualisatorPrefab => _playerConfig.GetVisualisatorPrefab;
     #endregion
 
     private void Start()
