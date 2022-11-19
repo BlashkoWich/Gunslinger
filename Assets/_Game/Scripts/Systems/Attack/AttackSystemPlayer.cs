@@ -9,10 +9,14 @@ public class AttackSystemPlayer : IAttackSystem
         _self = self;
     }
 
-    private IAttacker _self;
-
     public override void Attack()
     {
-        throw new System.NotImplementedException();
+        if(Input.GetMouseButtonDown(0))
+        {
+            if(IsReadyToShoot)
+            {
+
+            }
+        }
     }
 }

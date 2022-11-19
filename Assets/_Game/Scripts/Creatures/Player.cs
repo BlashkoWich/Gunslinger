@@ -110,8 +110,12 @@ public class Player : MonoBehaviour, IMovable, IAimable, IAttacker, IVisualizabl
     private void Update()
     {
         GetMoveSystem.CalculateDirection();
+        
         GetAimSystem.CalculateAim();
         GetAimSystem.UpdateAim();
+
+        GetAttackSystem.UpdateCooldown(Time.deltaTime);
+        GetAttackSystem.Attack();
     }
     private void FixedUpdate()
     {
