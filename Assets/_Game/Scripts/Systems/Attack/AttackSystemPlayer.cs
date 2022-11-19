@@ -30,6 +30,7 @@ public class AttackSystemPlayer : IAttackSystem
                         }
                     }
                 }
+                Debug.DrawRay(ray.origin, ray.direction * 999f);
 
                 RestoreCooldown();
             }

@@ -20,12 +20,9 @@ public class EnemyManager : MonoBehaviour
             if(_pool == null)
             {
                 _pool = new Pool();
-                
-                Debug.Log("Subscribe");
 
                 _pool.OnNeedObjects += (int count, System.Type type) =>
                 {
-                    Debug.Log("OnNeedObjects");
                     for (int i = 0; i < count; i++)
                     {
                         Enemy enemy = Instantiate(_enemyPrefab, new Vector3(100, 100, 100), Quaternion.identity);
@@ -46,17 +43,13 @@ public class EnemyManager : MonoBehaviour
 
         for (int i = 0; i < enemySpawnpoints.Length; i++)
         {
-            Debug.Log("1");
             SpawnEnemy(_enemyConfig, enemySpawnpoints[i].position);
         }
     }
     private void SpawnEnemy(EnemyConfig enemyConfig, Vector3 spawnPosition)
     {
-        Debug.Log("2");
         List<IPoolable> poolables = getPool.GetFreeObjects(1);
-        Debug.Log("3");
         Enemy enemy = poolables[0] as Enemy;
-        Debug.Log("4");
         enemy.Initialize(enemyConfig);
         enemy.transform.position = spawnPosition;
     }
