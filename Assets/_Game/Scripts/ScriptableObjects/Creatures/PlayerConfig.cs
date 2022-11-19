@@ -7,6 +7,9 @@ public class PlayerConfig : ScriptableObject
 {
     [SerializeField]
     private MoveStats _moveStats;
+    [SerializeField]
+    private AimStats _aimStats;
 
     public MoveStats GetMoveStats => _moveStats;
+    public AimStats GetAimStats => _aimStats;
 }

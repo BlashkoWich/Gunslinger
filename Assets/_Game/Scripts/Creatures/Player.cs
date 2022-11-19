@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IMovable
+public class Player : MonoBehaviour, IMovable, IAimable
 {
     [SerializeField]
     private PlayerConfig _playerConfig;
@@ -21,12 +21,32 @@ public class Player : MonoBehaviour, IMovable
         {
             if(_moveSystemPlayer == null)
             {
-                _moveSystemPlayer = new MoveSystemPlayer(this);
+                _moveSystemPlayer = new MoveSystemPlayer(this, _aimTransform);
             }
 
             return _moveSystemPlayer;
         }
     }
+    #endregion
+    #region Aim
+    [SerializeField]
+    private Transform _aimTransform;
+    public Transform GetAimTransform => _aimTransform;
+
+    private AimSystemPlayer _aimSystemPlayer;
+    public IAimSystem GetAimSystem
+    {
+        get
+        {
+            if(_aimSystemPlayer == null)
+            {
+                _aimSystemPlayer = new AimSystemPlayer(this);
+            }
+
+            return _aimSystemPlayer;
+        }
+    }
+    public AimStats GetAimStats => _playerConfig.GetAimStats;
     #endregion
 
     private void Start()
@@ -42,6 +62,8 @@ public class Player : MonoBehaviour, IMovable
     private void Update()
     {
         GetMoveSystem.CalculateDirection();
+        GetAimSystem.CalculateAim();
+        GetAimSystem.UpdateAim();
     }
     private void FixedUpdate()
     {
