@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IMovable, IAimable
+public class Player : MonoBehaviour, IMovable, IAimable, IAttacker
 {
     [SerializeField]
     private PlayerConfig _playerConfig;
@@ -47,6 +47,34 @@ public class Player : MonoBehaviour, IMovable, IAimable
         }
     }
     public AimStats GetAimStats => _playerConfig.GetAimStats;
+    #endregion
+    #region Attack
+    private WeaponSystem _weaponSystem;
+    public WeaponSystem GetWeaponSystem
+    {
+        get
+        {
+            if(_weaponSystem == null)
+            {
+                _weaponSystem = new WeaponSystem(this);
+            }
+
+            return _weaponSystem;
+        }
+    }
+    private AttackSystemPlayer _attackSystemPlayer;
+    public IAttackSystem GetAttackSystem
+    {
+        get
+        {
+            if(_attackSystemPlayer == null)
+            {
+                _attackSystemPlayer = new AttackSystemPlayer(this);
+            }
+
+            return _attackSystemPlayer;
+        }
+    }
     #endregion
 
     private void Start()
