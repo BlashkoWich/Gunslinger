@@ -75,6 +75,7 @@ public class Player : MonoBehaviour, IMovable, IAimable, IAttacker, IVisualizabl
             return _attackSystemPlayer;
         }
     }
+    public bool IsPlayerTeam => healthStats.isPlayerTeam;
     #endregion
     #region Visual
     private VisualSystem _visualSystem;
@@ -114,6 +115,10 @@ public class Player : MonoBehaviour, IMovable, IAimable, IAttacker, IVisualizabl
     }
     #endregion
 
+    private void Awake()
+    {
+        GetHealthSystem.OnDie += Die;
+    }
     private void Start()
     {
         Initialize(_playerConfig);
@@ -139,5 +144,10 @@ public class Player : MonoBehaviour, IMovable, IAimable, IAttacker, IVisualizabl
     private void FixedUpdate()
     {
         GetMoveSystem.Move();
+    }
+
+    private void Die()
+    {
+
     }
 }

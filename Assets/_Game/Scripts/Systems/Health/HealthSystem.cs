@@ -14,7 +14,7 @@ public class HealthSystem
     public event Action OnDie;
 
     private IHealthable _self;
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         if (IsDie() == true)
         {
