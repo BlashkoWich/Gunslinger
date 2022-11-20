@@ -17,4 +17,4 @@ MonoBehaviour:
     cooldown: 0.001
     ammoMagazine: 5
     ammoMaxStorage: 25
-  _visualisatorPrefab: {fileID: 7904391846363886037, guid: b0defd8655749384a93fb81612ba8734, type: 3}
+  _visualisatorPrefab: {fileID: 5306589485006244435, guid: 67f716418f7ba2146a845739c7782755, type: 3}

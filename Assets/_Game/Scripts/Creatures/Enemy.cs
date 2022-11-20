@@ -30,6 +30,26 @@ public class Enemy : ICreature, IHealthable, IPoolable
         }
     }
     #endregion
+    #region Animation
+    private EnemyAnimatorManager _enemyAnimatorManager;
+    private EnemyAnimatorManager GetEnemyAnimatorManager
+    {
+        get
+        {
+            if(_enemyAnimatorManager == null)
+            {
+                _enemyAnimatorManager = new EnemyAnimatorManager();
+                _enemyAnimatorManager.OnNeedAnimator += () =>
+                {
+                    VisualisatorCreature visualisatorCreature = (VisualisatorCreature)GetVisualSystem.visualisator;
+                    _enemyAnimatorManager.animator = visualisatorCreature.GetAnimator;
+                };
+            }
+
+            return _enemyAnimatorManager;
+        }
+    }
+    #endregion
 
     public override void Initialize(ICreatureConfig creatureConfig)
     {

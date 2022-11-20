@@ -15,24 +15,24 @@ public class VisualSystem
 
     private IVisualizable _self;
 
-    private IVisualisator _visualisator;
+    public IVisualisator visualisator { get; private set; }
 
     public void SpawnVisual()
     {
-        if(_visualisator == null)
+        if(visualisator == null)
         {
             OnNeedVisual?.Invoke(_self.GetVisualisatorPrefab.GetName);
         }
-        else if(_visualisator.name != _self.GetVisualisatorPrefab.GetName)
+        else if(visualisator.name != _self.GetVisualisatorPrefab.GetName)
         {
-            OnRemoveVisualisator?.Invoke(_visualisator);
+            OnRemoveVisualisator?.Invoke(visualisator);
             OnNeedVisual?.Invoke(_self.GetVisualisatorPrefab.GetName);
         }
     }
     public void SetVisualisator(IVisualisator visualisator)
     {
-        _visualisator = visualisator;
-        _visualisator.transform.position = _self.GetVisualPoint.position;
-        _visualisator.transform.parent = _self.GetVisualPoint;
+        this.visualisator = visualisator;
+        this.visualisator.transform.position = _self.GetVisualPoint.position;
+        this.visualisator.transform.parent = _self.GetVisualPoint;
     }
 }
