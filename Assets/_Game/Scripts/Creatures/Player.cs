@@ -48,6 +48,8 @@ public class Player : ICreature, IMovable, IAimable, IAttacker, IHealthable
         }
     }
     public AimStats GetAimStats => _playerConfig.GetAimStats;
+    [SerializeField]
+    private Transform _targetWeaponPosition;
     #endregion
     #region Attack
     private WeaponSystem _weaponSystem;
@@ -100,6 +102,9 @@ public class Player : ICreature, IMovable, IAimable, IAttacker, IHealthable
     }
     #endregion
 
+    [SerializeField]
+    private bool _isDebug;
+
     private void Awake()
     {
         GetHealthSystem.OnDie += Die;
@@ -121,12 +126,17 @@ public class Player : ICreature, IMovable, IAimable, IAttacker, IHealthable
     private void Update()
     {
         GetMoveSystem.CalculateDirection();
-        
-        GetAimSystem.CalculateAim();
-        GetAimSystem.UpdateAim();
+        if (_isDebug == false)
+        {
+            GetAimSystem.CalculateAim();
+            GetAimSystem.UpdateAim();
+        }
 
         GetAttackSystem.UpdateCooldown(Time.deltaTime);
         GetAttackSystem.Attack();
+
+        _weaponPoint.position = Vector3.Lerp(_weaponPoint.position, _targetWeaponPosition.position, 12 * Time.deltaTime);
+        _weaponPoint.rotation = _targetWeaponPosition.rotation;
     }
     private void FixedUpdate()
     {
