@@ -7,6 +7,9 @@ public class Enemy : ICreature, IHealthable, IPoolable
 {
     private EnemyConfig _enemyConfig;
     protected override ICreatureConfig GetConfig => _enemyConfig;
+    private VisualisatorCreature GetVisualisatorCreature => (VisualisatorCreature)GetVisualSystem.visualisator;
+    [SerializeField]
+    private Collider _collider;
     #region Pool
     public event Action OnAddToPool;
     public string GetName => gameObject.name;
@@ -24,6 +27,7 @@ public class Enemy : ICreature, IHealthable, IPoolable
             if (_healthSystem == null)
             {
                 _healthSystem = new HealthSystem(this);
+                _healthSystem.OnDie += Die;
             }
 
             return _healthSystem;
@@ -41,8 +45,7 @@ public class Enemy : ICreature, IHealthable, IPoolable
                 _enemyAnimatorManager = new EnemyAnimatorManager();
                 _enemyAnimatorManager.OnNeedAnimator += () =>
                 {
-                    VisualisatorCreature visualisatorCreature = (VisualisatorCreature)GetVisualSystem.visualisator;
-                    _enemyAnimatorManager.animator = visualisatorCreature.GetAnimator;
+                    _enemyAnimatorManager.animator = GetVisualisatorCreature.GetAnimator;
                 };
             }
 
@@ -56,5 +59,21 @@ public class Enemy : ICreature, IHealthable, IPoolable
         _enemyConfig = creatureConfig as EnemyConfig;
         healthStats = _enemyConfig.GetHealthStats;
         GetVisualSystem.SpawnVisual();
+        _collider.enabled = true;
+        GetVisualisatorCreature.RagdollToogle(false);
+    }
+
+    private void Die()
+    {
+        _collider.enabled = false;
+        GetVisualisatorCreature.RagdollToogle(true);
+        StartCoroutine(TimerToHide());
+
+        IEnumerator TimerToHide()
+        {
+            yield return new WaitForSeconds(5f);
+            OnAddToPool?.Invoke();
+            GetVisualisatorCreature.AddToPool();
+        }
     }
 }

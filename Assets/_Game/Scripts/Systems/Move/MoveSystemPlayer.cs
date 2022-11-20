@@ -34,6 +34,6 @@ public class MoveSystemPlayer : IMoveSystem
 
     public override void Move()
     {
-        _self.GetRigidbody.velocity = _directionMove * _self.moveStats.speed * Time.deltaTime;
+        _self.GetRigidbody.velocity = _directionMove * _self.moveStats.speed * Time.fixedDeltaTime;
     }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41350da6883f00c4d8db5cf5232bb64a, type: 3}
   m_Name: EnemyConfig
   m_EditorClassIdentifier: 
-  _visualisatorPrefab: {fileID: 541751153065723586, guid: a522f8cb42410724ba6c42866e61ffc1, type: 3}
+  _visualisatorPrefab: {fileID: 5446775850770904607, guid: b8de2535ff9569b4a95be41e2217fd2c, type: 3}
   _moveStats:
     speed: 3
   _aimStats:
@@ -20,6 +20,6 @@ MonoBehaviour:
     CamSensY: 1
   _startWeapon: {fileID: 11400000, guid: c7e3cf252855eb146a8cc0f3afe470e0, type: 2}
   _healthStats:
-    health: 10
-    maxHealth: 10
+    health: 1
+    maxHealth: 1
     isPlayerTeam: 0
