@@ -42,6 +42,7 @@ public class AttackSystemPlayer : IAttackSystem
                     }
                     _self.GetImpactSystem.ShootImpact(hit.point, hit.normal);
                 }
+                _self.GetWeaponSystem.weapon.GetWeaponAnimatorManager.Shoot();
                 RestoreCooldown();
                 MinusAmmoMagazine();
 

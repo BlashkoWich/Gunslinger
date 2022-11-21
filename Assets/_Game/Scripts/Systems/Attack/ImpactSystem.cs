@@ -38,7 +38,6 @@ public class ImpactSystem
     }
     public void ShootImpact(Vector3 hitPosition, Vector3 hitNormal)
     {
-        Debug.Log("ShootImpact" + hitPosition);
         Collider[] colliders = Physics.OverlapSphere(hitPosition, 0.3f);
         if (colliders.Length != 0)
         {

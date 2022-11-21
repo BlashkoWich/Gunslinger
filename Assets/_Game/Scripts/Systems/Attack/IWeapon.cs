@@ -31,6 +31,22 @@ public class IWeapon : MonoBehaviour, IVisualizable, IPoolable
     public Transform GetVisualPoint => _visualPoint;
     public IVisualisator GetVisualisatorPrefab => _weaponConfig.GetVisualisatorPrefab;
     #endregion
+    #region Animation
+    private WeaponAnimatorManager _weaponAnimatorManager;
+    public WeaponAnimatorManager GetWeaponAnimatorManager
+    {
+        get
+        {
+            if(_weaponAnimatorManager == null)
+            {
+                VisualisatorWeapon visualisatorWeapon = (VisualisatorWeapon)GetVisualSystem.visualisator;
+                _weaponAnimatorManager = new WeaponAnimatorManager(visualisatorWeapon.GetAnimator);
+            }
+
+            return _weaponAnimatorManager;
+        }
+    }
+    #endregion
 
     public void Initialize(WeaponConfig weaponConfig)
     {
