@@ -16,6 +16,7 @@ public class PlayerManager : MonoBehaviour
         player = Instantiate(_playerPrefab, playerSpawnpoint.position, Quaternion.identity);
         _managersContainer.GetVisualManager.Subscribe(player);
         _managersContainer.GetWeaponManager.Subscribe(player);
+        _managersContainer.GetImpactManager.Subscribe(player);
         Subscribe();
 
         void Subscribe()

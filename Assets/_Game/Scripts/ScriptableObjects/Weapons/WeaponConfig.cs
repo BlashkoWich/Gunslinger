@@ -21,4 +21,6 @@ public struct WeaponStats
     public float cooldown;
     public int ammoMagazine;
     public int ammoMaxStorage;
+
+    public ImpactObject impact;
 }

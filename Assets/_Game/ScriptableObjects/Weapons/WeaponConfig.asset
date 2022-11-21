@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponsStats:
     damage: 1
-    cooldown: 0.001
-    ammoMagazine: 5
-    ammoMaxStorage: 25
+    cooldown: 0.2
+    ammoMagazine: 30
+    ammoMaxStorage: 90
+    impact: {fileID: 8332032888356319466, guid: 4ec25c3c640df56438dccd11a0c317c1, type: 3}
   _visualisatorPrefab: {fileID: 5306589485006244435, guid: 67f716418f7ba2146a845739c7782755, type: 3}

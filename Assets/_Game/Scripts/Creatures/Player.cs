@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : ICreature, IMovable, IAimable, IAttacker, IHealthable
@@ -20,7 +18,7 @@ public class Player : ICreature, IMovable, IAimable, IAttacker, IHealthable
     {
         get
         {
-            if(_moveSystemPlayer == null)
+            if (_moveSystemPlayer == null)
             {
                 _moveSystemPlayer = new MoveSystemPlayer(this, _aimTransform);
             }
@@ -39,7 +37,7 @@ public class Player : ICreature, IMovable, IAimable, IAttacker, IHealthable
     {
         get
         {
-            if(_aimSystemPlayer == null)
+            if (_aimSystemPlayer == null)
             {
                 _aimSystemPlayer = new AimSystemPlayer(this);
             }
@@ -57,7 +55,7 @@ public class Player : ICreature, IMovable, IAimable, IAttacker, IHealthable
     {
         get
         {
-            if(_weaponSystem == null)
+            if (_weaponSystem == null)
             {
                 _weaponSystem = new WeaponSystem(this);
             }
@@ -70,12 +68,25 @@ public class Player : ICreature, IMovable, IAimable, IAttacker, IHealthable
     {
         get
         {
-            if(_attackSystemPlayer == null)
+            if (_attackSystemPlayer == null)
             {
                 _attackSystemPlayer = new AttackSystemPlayer(this);
             }
 
             return _attackSystemPlayer;
+        }
+    }
+    private ImpactSystem _impactSystem;
+    public ImpactSystem GetImpactSystem
+    {
+        get
+        {
+            if (_impactSystem == null)
+            {
+                _impactSystem = new ImpactSystem(this);
+            }
+
+            return _impactSystem;
         }
     }
     public bool IsPlayerTeam => healthStats.isPlayerTeam;
@@ -92,7 +103,7 @@ public class Player : ICreature, IMovable, IAimable, IAttacker, IHealthable
     {
         get
         {
-            if(_healthSystem == null)
+            if (_healthSystem == null)
             {
                 _healthSystem = new HealthSystem(this);
             }
@@ -101,9 +112,6 @@ public class Player : ICreature, IMovable, IAimable, IAttacker, IHealthable
         }
     }
     #endregion
-
-    [SerializeField]
-    private bool _isDebug;
 
     private void Awake()
     {
@@ -126,11 +134,9 @@ public class Player : ICreature, IMovable, IAimable, IAttacker, IHealthable
     private void Update()
     {
         GetMoveSystem.CalculateDirection();
-        if (_isDebug == false)
-        {
-            GetAimSystem.CalculateAim();
-            GetAimSystem.UpdateAim();
-        }
+
+        GetAimSystem.CalculateAim();
+        GetAimSystem.UpdateAim();
 
         GetAttackSystem.UpdateCooldown(Time.deltaTime);
         GetAttackSystem.Attack();
