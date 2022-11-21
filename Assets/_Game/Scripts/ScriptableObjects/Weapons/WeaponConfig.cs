@@ -19,6 +19,6 @@ public struct WeaponStats
 {
     public float damage;
     public float cooldown;
-    public float ammoMagazine;
-    public float ammoMaxStorage;
+    public int ammoMagazine;
+    public int ammoMaxStorage;
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class AttackSystemPlayer : IAttackSystem
         _self = self;
         _camera = Camera.main;
     }
+    public override event Action OnShoot;
 
     private Camera _camera;
 
@@ -30,9 +32,21 @@ public class AttackSystemPlayer : IAttackSystem
                         }
                     }
                 }
-                Debug.DrawRay(ray.origin, ray.direction * 999f);
-
                 RestoreCooldown();
+                MinusAmmoMagazine();
+                
+                OnShoot?.Invoke();
+            }
+        }
+    }
+
+    public override void Reload()
+    {
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            if(IsReadyToReload)
+            {
+                ReloadMagazine();
             }
         }
     }

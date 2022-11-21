@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -18,5 +16,20 @@ public class PlayerManager : MonoBehaviour
         player = Instantiate(_playerPrefab, playerSpawnpoint.position, Quaternion.identity);
         _managersContainer.GetVisualManager.Subscribe(player);
         _managersContainer.GetWeaponManager.Subscribe(player);
+        Subscribe();
+
+        void Subscribe()
+        {
+            GameScreen gameScreen = _managersContainer.GetScreenManager.GetScreen<GameScreen>();
+            AmmoUI ammoUI = gameScreen.GetAmmoUI;
+            player.GetAttackSystem.OnUpdateAmmoMagazine += (int value) =>
+            {
+                ammoUI.UpdateAmmoCurrent(value);
+            };
+            player.GetAttackSystem.OnUpdateAmmoStorage += (int value) =>
+            {
+                ammoUI.UpdateAmmoFull(value);
+            };
+        }
     }
 }

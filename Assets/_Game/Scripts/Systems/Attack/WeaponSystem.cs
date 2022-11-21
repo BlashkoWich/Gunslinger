@@ -25,5 +25,7 @@ public class WeaponSystem
         weapon = newWeapon;
         weapon.transform.position = _self.GetWeaponPoint.position;
         weapon.transform.parent = _self.GetWeaponPoint;
+
+        _self.GetAttackSystem.ChangeWeapon();
     }
 }

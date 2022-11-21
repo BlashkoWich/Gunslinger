@@ -14,10 +14,13 @@ public class ManagersContainer : MonoBehaviour
     private WeaponManager _weaponManager;
     [SerializeField]
     private EnemyManager _enemyManager;
+    [SerializeField]
+    private ScreenManager _screenManager;
 
     public PlayerManager GetPlayerManager => _playerManager;
     public VisualManager GetVisualManager => _visualManager;
     public LevelManager GetLevelManager => _levelManager;
     public WeaponManager GetWeaponManager => _weaponManager;
     public EnemyManager GetEnemyManager => _enemyManager;
+    public ScreenManager GetScreenManager => _screenManager;
 }

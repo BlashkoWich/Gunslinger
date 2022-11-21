@@ -134,6 +134,7 @@ public class Player : ICreature, IMovable, IAimable, IAttacker, IHealthable
 
         GetAttackSystem.UpdateCooldown(Time.deltaTime);
         GetAttackSystem.Attack();
+        GetAttackSystem.Reload();
 
         _weaponPoint.position = Vector3.Lerp(_weaponPoint.position, _targetWeaponPosition.position, 12 * Time.deltaTime);
         _weaponPoint.rotation = _targetWeaponPosition.rotation;
