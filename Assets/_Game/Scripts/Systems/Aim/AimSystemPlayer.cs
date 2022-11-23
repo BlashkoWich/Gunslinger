@@ -33,11 +33,12 @@ public class AimSystemPlayer : IAimSystem
 
         Vector3 rotationTarget = new Vector3(rotationX, rotationY, 0);
         directionAim = rotationTarget;
+
+        _recoilSystem.GoToResetRecoil(Time.deltaTime);
     }
 
     public override void UpdateAim()
     {
         _self.GetAimTransform.rotation = Quaternion.Lerp(_self.GetAimTransform.rotation, Quaternion.Euler(directionAim), 10f * Time.deltaTime);
-        Debug.Log(directionAim + "UpdateAim");
     }
 }

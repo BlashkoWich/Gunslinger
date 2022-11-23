@@ -15,13 +15,33 @@ public class RecoilSystem
     private IAttacker _attacker;
     private IAimable _aimable;
 
+    private const float _timeToResetRecoil = 1;
+    private float _currentTimeToResetRecoil;
+    private int _recoilStep;
+
+    public void GoToResetRecoil(float deltaTime)
+    {
+        if(_currentTimeToResetRecoil <= 0)
+        {
+            return;
+        }
+
+        _currentTimeToResetRecoil -= deltaTime;
+
+        if(_currentTimeToResetRecoil <= 0)
+        {
+            _recoilStep = 0;
+        }
+    }
+
     private void Recoil()
     {
-        float deltaXRecoil = _attacker.GetWeaponSystem.weapon.weaponStats.xRecoil;
-        float xRecoil = Random.Range(-deltaXRecoil, deltaXRecoil);
-        float deltaYRecoil = _attacker.GetWeaponSystem.weapon.weaponStats.yRecoil;
-        float yRecoil = Random.Range(-deltaYRecoil, deltaYRecoil);
+        float xRecoil = _attacker.GetWeaponSystem.weapon.weaponStats.recoilStats[_recoilStep].xRecoil;
+        float yRecoil = _attacker.GetWeaponSystem.weapon.weaponStats.recoilStats[_recoilStep].yRecoil;
 
         _aimable.GetAimSystem.directionAim += new Vector3(xRecoil, yRecoil, 0);
+
+        _recoilStep++;
+        _currentTimeToResetRecoil = _timeToResetRecoil;
     }
 }

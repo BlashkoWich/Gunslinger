@@ -17,7 +17,66 @@ MonoBehaviour:
     cooldown: 0.2
     ammoMagazine: 30
     ammoMaxStorage: 90
-    xRecoil: 1
-    yRecoil: 1
+    recoilStats:
+    - xRecoil: 0.1
+      yRecoil: 0.2
+    - xRecoil: 0.2
+      yRecoil: 0.3
+    - xRecoil: 0.2
+      yRecoil: 0.2
+    - xRecoil: -0.2
+      yRecoil: 0
+    - xRecoil: 0
+      yRecoil: -0.2
+    - xRecoil: -0.3
+      yRecoil: 0.2
+    - xRecoil: 0.2
+      yRecoil: 0.3
+    - xRecoil: -0.3
+      yRecoil: 0.2
+    - xRecoil: -0.1
+      yRecoil: -0.2
+    - xRecoil: 0.12
+      yRecoil: 0.21
+    - xRecoil: 0.1
+      yRecoil: 0.2
+    - xRecoil: 0.1
+      yRecoil: 0.2
+    - xRecoil: -0.1
+      yRecoil: -0.2
+    - xRecoil: 0.12
+      yRecoil: 0.21
+    - xRecoil: -0.1
+      yRecoil: -0.2
+    - xRecoil: 0.12
+      yRecoil: 0.21
+    - xRecoil: 0.05
+      yRecoil: 0.05
+    - xRecoil: 0.05
+      yRecoil: -0.03
+    - xRecoil: 0.05
+      yRecoil: 0.05
+    - xRecoil: 0.12
+      yRecoil: 0.21
+    - xRecoil: 0.12
+      yRecoil: 0.21
+    - xRecoil: -0.2
+      yRecoil: -0.4
+    - xRecoil: 0
+      yRecoil: 0.1
+    - xRecoil: 0
+      yRecoil: 0.1
+    - xRecoil: 0
+      yRecoil: 0.1
+    - xRecoil: 0
+      yRecoil: 0.1
+    - xRecoil: 0
+      yRecoil: 0.1
+    - xRecoil: 0
+      yRecoil: 0.1
+    - xRecoil: 0
+      yRecoil: 0.1
+    - xRecoil: 0
+      yRecoil: 0.1
     impact: {fileID: 8332032888356319466, guid: 4ec25c3c640df56438dccd11a0c317c1, type: 3}
   _visualisatorPrefab: {fileID: 7469046461328707785, guid: 67f716418f7ba2146a845739c7782755, type: 3}

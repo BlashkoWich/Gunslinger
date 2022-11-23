@@ -22,8 +22,14 @@ public struct WeaponStats
     public int ammoMagazine;
     public int ammoMaxStorage;
 
-    public float xRecoil;
-    public float yRecoil;
+    public RecoilStat[] recoilStats;
 
     public ImpactObject impact;
+}
+
+[System.Serializable]
+public struct RecoilStat
+{
+    public float xRecoil;
+    public float yRecoil;
 }
