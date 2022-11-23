@@ -36,6 +36,11 @@ public class RecoilSystem
 
     private void Recoil()
     {
+        if(_aimable.GetWeaponSightController.isSightMode == false)
+        {
+            return;
+        }
+        Debug.Log("Recoil" + _aimable.GetWeaponSightController.isSightMode);
         float xRecoil = _attacker.GetWeaponSystem.weapon.weaponStats.recoilStats[_recoilStep].xRecoil;
         float yRecoil = _attacker.GetWeaponSystem.weapon.weaponStats.recoilStats[_recoilStep].yRecoil;
 

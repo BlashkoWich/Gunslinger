@@ -14,7 +14,6 @@ public class AimSystemPlayer : IAimSystem
     private float _maxX = 40f;
     public override void CalculateAim()
     {
-        Debug.Log(directionAim + "BeforeUpdateAim");
         float axisX = Input.GetAxis("Mouse Y");
         float axisY = Input.GetAxis("Mouse X");
 

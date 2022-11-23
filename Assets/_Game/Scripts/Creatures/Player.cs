@@ -48,6 +48,19 @@ public class Player : ICreature, IMovable, IAimable, IAttacker, IHealthable
     public AimStats GetAimStats => _playerConfig.GetAimStats;
     [SerializeField]
     private Transform _targetWeaponPosition;
+    private WeaponSightController _weaponSightController;
+    public WeaponSightController GetWeaponSightController
+    {
+        get
+        {
+            if(_weaponSightController == null)
+            {
+                _weaponSightController = new WeaponSightController();
+            }
+
+            return _weaponSightController;
+        }
+    }
     #endregion
     #region Attack
     private WeaponSystem _weaponSystem;
@@ -70,7 +83,7 @@ public class Player : ICreature, IMovable, IAimable, IAttacker, IHealthable
         {
             if (_attackSystemPlayer == null)
             {
-                _attackSystemPlayer = new AttackSystemPlayer(this);
+                _attackSystemPlayer = new AttackSystemPlayer(this, this);
             }
 
             return _attackSystemPlayer;
@@ -131,6 +144,8 @@ public class Player : ICreature, IMovable, IAimable, IAttacker, IHealthable
     private void Update()
     {
         GetMoveSystem.CalculateDirection();
+
+        GetWeaponSightController.UpdateSightMode();
 
         GetAttackSystem.UpdateCooldown(Time.deltaTime);
         GetAttackSystem.Attack();

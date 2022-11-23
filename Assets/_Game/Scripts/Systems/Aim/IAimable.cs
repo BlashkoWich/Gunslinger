@@ -7,6 +7,7 @@ public interface IAimable
     public Transform GetAimTransform { get; }
     public IAimSystem GetAimSystem { get; }
     public AimStats GetAimStats { get; }
+    public WeaponSightController GetWeaponSightController { get; }
 }
 
 [System.Serializable]
