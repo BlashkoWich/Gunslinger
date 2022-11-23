@@ -22,5 +22,8 @@ public struct WeaponStats
     public int ammoMagazine;
     public int ammoMaxStorage;
 
+    public float xRecoil;
+    public float yRecoil;
+
     public ImpactObject impact;
 }

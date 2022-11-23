@@ -2,21 +2,23 @@ using UnityEngine;
 
 public class AimSystemPlayer : IAimSystem
 {
-    public AimSystemPlayer(IAimable self)
+    public AimSystemPlayer(IAimable self, IAttacker attacker)
     {
         _self = self;
+        _recoilSystem = new RecoilSystem(attacker, self);
     }
 
-    private Vector3 _directionAim;
+    private RecoilSystem _recoilSystem;
 
     private float _minX = 330f;
     private float _maxX = 40f;
     public override void CalculateAim()
     {
+        Debug.Log(directionAim + "BeforeUpdateAim");
         float axisX = Input.GetAxis("Mouse Y");
         float axisY = Input.GetAxis("Mouse X");
 
-        Vector3 rotationCurrent = _self.GetAimTransform.rotation.eulerAngles;
+        Vector3 rotationCurrent = directionAim;
         float rotationX = rotationCurrent.x - axisX * _self.GetAimStats.CamSensX;
         float rotationY = rotationCurrent.y + axisY * _self.GetAimStats.CamSensY;
 
@@ -30,12 +32,12 @@ public class AimSystemPlayer : IAimSystem
         }
 
         Vector3 rotationTarget = new Vector3(rotationX, rotationY, 0);
-        _directionAim = rotationTarget;
+        directionAim = rotationTarget;
     }
 
     public override void UpdateAim()
     {
-        //_self.GetAimTransform.rotation = Quaternion.Lerp(_self.GetAimTransform.rotation, Quaternion.Euler(_directionAim), 6 * Time.deltaTime);
-        _self.GetAimTransform.rotation = Quaternion.Euler(_directionAim);
+        _self.GetAimTransform.rotation = Quaternion.Euler(directionAim);
+        Debug.Log(directionAim + "UpdateAim");
     }
 }

@@ -130,7 +130,6 @@ MonoBehaviour:
   _aimTransform: {fileID: 4119858840899962379}
   _targetWeaponPosition: {fileID: 7760660691178330613}
   _weaponPoint: {fileID: 4092950421402880552}
-  _isDebug: 0
 --- !u!54 &4119858840756096669
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -218,8 +217,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4119858841056118950}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.00000011920929, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

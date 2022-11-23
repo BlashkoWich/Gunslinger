@@ -39,7 +39,7 @@ public class Player : ICreature, IMovable, IAimable, IAttacker, IHealthable
         {
             if (_aimSystemPlayer == null)
             {
-                _aimSystemPlayer = new AimSystemPlayer(this);
+                _aimSystemPlayer = new AimSystemPlayer(this, this);
             }
 
             return _aimSystemPlayer;
@@ -106,6 +106,7 @@ public class Player : ICreature, IMovable, IAimable, IAttacker, IHealthable
             if (_healthSystem == null)
             {
                 _healthSystem = new HealthSystem(this);
+                _healthSystem.OnDie += Die;
             }
 
             return _healthSystem;
@@ -113,10 +114,6 @@ public class Player : ICreature, IMovable, IAimable, IAttacker, IHealthable
     }
     #endregion
 
-    private void Awake()
-    {
-        GetHealthSystem.OnDie += Die;
-    }
     private void Start()
     {
         Initialize(_playerConfig);
@@ -135,12 +132,12 @@ public class Player : ICreature, IMovable, IAimable, IAttacker, IHealthable
     {
         GetMoveSystem.CalculateDirection();
 
-        GetAimSystem.CalculateAim();
-        GetAimSystem.UpdateAim();
-
         GetAttackSystem.UpdateCooldown(Time.deltaTime);
         GetAttackSystem.Attack();
         GetAttackSystem.Reload();
+
+        GetAimSystem.CalculateAim();
+        GetAimSystem.UpdateAim();
 
         _weaponPoint.position = Vector3.Lerp(_weaponPoint.position, _targetWeaponPosition.position, 12 * Time.deltaTime);
         _weaponPoint.rotation = _targetWeaponPosition.rotation;
