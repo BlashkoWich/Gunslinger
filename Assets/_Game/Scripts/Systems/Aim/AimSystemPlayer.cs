@@ -37,7 +37,7 @@ public class AimSystemPlayer : IAimSystem
 
     public override void UpdateAim()
     {
-        _self.GetAimTransform.rotation = Quaternion.Euler(directionAim);
+        _self.GetAimTransform.rotation = Quaternion.Lerp(_self.GetAimTransform.rotation, Quaternion.Euler(directionAim), 10f * Time.deltaTime);
         Debug.Log(directionAim + "UpdateAim");
     }
 }
