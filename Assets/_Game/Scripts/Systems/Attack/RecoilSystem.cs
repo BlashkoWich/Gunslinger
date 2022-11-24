@@ -45,6 +45,10 @@ public class RecoilSystem
             _recoilStep++;
             return;
         }
+        if(_recoilStep >= _attacker.GetWeaponSystem.weapon.weaponStats.recoilStats.Length)
+        {
+            _recoilStep = 0;
+        }
         float xRecoil = _attacker.GetWeaponSystem.weapon.weaponStats.recoilStats[_recoilStep].xRecoil;
         float yRecoil = _attacker.GetWeaponSystem.weapon.weaponStats.recoilStats[_recoilStep].yRecoil;
 
