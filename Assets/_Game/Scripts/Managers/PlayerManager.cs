@@ -31,6 +31,24 @@ public class PlayerManager : MonoBehaviour
             {
                 ammoUI.UpdateAmmoFull(value);
             };
+            CrosshairUI crosshairUI = _managersContainer.GetScreenManager.GetScreen<GameScreen>().GetCrosshairUI;
+            AimSystemPlayer aimSystemPlayer = (AimSystemPlayer)player.GetAimSystem;
+            aimSystemPlayer.recoilSystem.OnResetRecoil += () =>
+            {
+                crosshairUI.ResetScale();
+            };
+            player.GetAttackSystem.OnShoot += () =>
+            {
+                crosshairUI.IncreaseScale();
+            };
+            player.GetWeaponSightController.OnActivatSightMode += () =>
+            {
+                crosshairUI.Toogle(false);
+            };
+            player.GetWeaponSightController.OnDisactivatSightMode += () =>
+            {
+                crosshairUI.Toogle(true);
+            };
         }
     }
 }

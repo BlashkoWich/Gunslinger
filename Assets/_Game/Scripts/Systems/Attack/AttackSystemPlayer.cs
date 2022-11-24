@@ -36,8 +36,12 @@ public class AttackSystemPlayer : IAttackSystem
                 }
                 else
                 {
-                    float xPosition = Screen.width / 2 + Random.Range(-10, 10);
-                    float yPosition = Screen.height / 2 + Random.Range(-10, 10);
+                    float xCenter = Screen.width / 2;
+                    float yCenter = Screen.height / 2;
+                    float deltaX = Random.Range(0.95f, 1.05f);
+                    float deltaY = Random.Range(0.95f, 1.05f);
+                    float xPosition = xCenter * deltaX;
+                    float yPosition = yCenter * deltaY;
                     shootTarget = new Vector2(xPosition, yPosition);
                 }
 
@@ -51,7 +55,10 @@ public class AttackSystemPlayer : IAttackSystem
                             healthable.GetHealthSystem.TakeDamage(_self.GetWeaponSystem.weapon.weaponStats.damage);
                         }
                     }
-                    _self.GetImpactSystem.ShootImpact(hit.point, hit.normal);
+                    else
+                    {
+                        _self.GetImpactSystem.ShootImpact(hit.point, hit.normal);
+                    }
                 }
 
                 _self.GetWeaponSystem.weapon.GetWeaponAnimatorManager.Shoot();

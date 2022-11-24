@@ -12,6 +12,8 @@ public class RecoilSystem
         _attacker.GetAttackSystem.OnShoot += Recoil;
     }
 
+    public event System.Action OnResetRecoil;
+
     private IAttacker _attacker;
     private IAimable _aimable;
 
@@ -31,6 +33,7 @@ public class RecoilSystem
         if(_currentTimeToResetRecoil <= 0)
         {
             _recoilStep = 0;
+            OnResetRecoil?.Invoke();
         }
     }
 
@@ -38,9 +41,10 @@ public class RecoilSystem
     {
         if(_aimable.GetWeaponSightController.isSightMode == false)
         {
+            _currentTimeToResetRecoil = _timeToResetRecoil;
+            _recoilStep++;
             return;
         }
-        Debug.Log("Recoil" + _aimable.GetWeaponSightController.isSightMode);
         float xRecoil = _attacker.GetWeaponSystem.weapon.weaponStats.recoilStats[_recoilStep].xRecoil;
         float yRecoil = _attacker.GetWeaponSystem.weapon.weaponStats.recoilStats[_recoilStep].yRecoil;
 

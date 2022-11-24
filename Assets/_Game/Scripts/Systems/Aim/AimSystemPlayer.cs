@@ -5,10 +5,10 @@ public class AimSystemPlayer : IAimSystem
     public AimSystemPlayer(IAimable self, IAttacker attacker)
     {
         _self = self;
-        _recoilSystem = new RecoilSystem(attacker, self);
+        recoilSystem = new RecoilSystem(attacker, self);
     }
 
-    private RecoilSystem _recoilSystem;
+    public RecoilSystem recoilSystem { get; private set; }
 
     private float _minX = 330f;
     private float _maxX = 40f;
@@ -33,11 +33,11 @@ public class AimSystemPlayer : IAimSystem
         Vector3 rotationTarget = new Vector3(rotationX, rotationY, 0);
         directionAim = rotationTarget;
 
-        _recoilSystem.GoToResetRecoil(Time.deltaTime);
+        recoilSystem.GoToResetRecoil(Time.deltaTime);
     }
 
     public override void UpdateAim()
     {
-        _self.GetAimTransform.rotation = Quaternion.Lerp(_self.GetAimTransform.rotation, Quaternion.Euler(directionAim), 10f * Time.deltaTime);
+        _self.GetAimTransform.rotation = Quaternion.Euler(directionAim);
     }
 }

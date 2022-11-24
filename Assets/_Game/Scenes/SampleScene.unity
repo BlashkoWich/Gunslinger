@@ -2176,7 +2176,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 972784878}
   m_Father: {fileID: 1916953244}
@@ -2254,6 +2254,8 @@ MonoBehaviour:
   _ammoUI:
     _ammoCurrentTMPro: {fileID: 950861852}
     _ammoFullTMPro: {fileID: 1530876767}
+  _crosshairUI:
+    _rectTransform: {fileID: 1895285282}
 --- !u!1 &1986884170
 GameObject:
   m_ObjectHideFlags: 0
