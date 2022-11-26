@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class MoveSystemPlayer : IMoveSystem
 {
-    public MoveSystemPlayer(IMovable self, Transform aimTransform)
+    public MoveSystemPlayer(IMovable self, IAttackSystem attackSystem, WeaponSightController weaponSightController, Transform aimTransform)
     {
         _self = self;
+        attackSystem.OnShoot += SprintOff;
+        weaponSightController.OnActivateSightMode += SprintOff;
         _aimTransform = aimTransform;
     }
 
@@ -46,6 +48,11 @@ public class MoveSystemPlayer : IMoveSystem
                 isSprint = false;
             }
         }
+    }
+
+    private void SprintOff()
+    {
+        isSprint = false;
     }
 
     public override void Move()

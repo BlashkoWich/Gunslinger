@@ -11,6 +11,7 @@ public class AttackSystemPlayer : IAttackSystem
     public override event System.Action OnShoot;
 
     private IAimable _aimable;
+    private WeaponSightController _weaponSightController;
 
     private Camera _camera;
 
@@ -29,7 +30,7 @@ public class AttackSystemPlayer : IAttackSystem
         {
             if (IsReadyToShoot)
             {
-                Vector2 shootTarget = default;
+                Vector2 shootTarget;
                 if (_aimable.GetWeaponSightController.isSightMode)
                 {
                     shootTarget = new Vector2(Screen.width / 2, Screen.height / 2);

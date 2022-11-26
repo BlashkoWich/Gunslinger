@@ -20,7 +20,7 @@ public class Player : ICreature, IMovable, IAimable, IAttacker, IHealthable
         {
             if (_moveSystemPlayer == null)
             {
-                _moveSystemPlayer = new MoveSystemPlayer(this, _aimTransform);
+                _moveSystemPlayer = new MoveSystemPlayer(this, GetAttackSystem, GetWeaponSightController, _aimTransform);
             }
 
             return _moveSystemPlayer;
