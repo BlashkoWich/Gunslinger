@@ -46,16 +46,13 @@ public class Player : ICreature, IMovable, IAimable, IAttacker, IHealthable
         }
     }
     public AimStats GetAimStats => _playerConfig.GetAimStats;
-    [SerializeField]
-    private Transform _defaultTargetWeaponPosition;
-    [SerializeField]
-    private Transform _sightModeTargetWeaponPosition;
+
     private WeaponSightController _weaponSightController;
     public WeaponSightController GetWeaponSightController
     {
         get
         {
-            if(_weaponSightController == null)
+            if (_weaponSightController == null)
             {
                 _weaponSightController = new WeaponSightController();
             }
@@ -63,8 +60,8 @@ public class Player : ICreature, IMovable, IAimable, IAttacker, IHealthable
             return _weaponSightController;
         }
     }
-
-    private Coroutine _weaponTransform;
+    [SerializeField]
+    private WeaponOnPlayerMove _weaponOnPlayerMove;
     #endregion
     #region Attack
     private WeaponSystem _weaponSystem;
@@ -157,17 +154,10 @@ public class Player : ICreature, IMovable, IAimable, IAttacker, IHealthable
 
         GetAimSystem.CalculateAim();
         GetAimSystem.UpdateAim();
-
-        if(GetWeaponSightController.isSightMode)
-        {
-            _weaponPoint.position = _sightModeTargetWeaponPosition.position;
-            _weaponPoint.rotation = _sightModeTargetWeaponPosition.rotation;
-        }
-        else
-        {
-            _weaponPoint.position = Vector3.Lerp(_weaponPoint.position, _defaultTargetWeaponPosition.position, 24 * Time.deltaTime);
-            _weaponPoint.rotation = _defaultTargetWeaponPosition.rotation;
-        }
+    }
+    private void LateUpdate()
+    {
+        _weaponOnPlayerMove.WeaponMove();
     }
     private void FixedUpdate()
     {

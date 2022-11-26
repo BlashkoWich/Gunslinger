@@ -11,9 +11,13 @@ public class MoveSystemPlayer : IMoveSystem
     private Transform _aimTransform;
     private Vector3 _directionMove;
 
+    public bool isSprint { get; private set; }
+    private const float _sprintMultiplier = 2f;
+
     public override void CalculateDirection()
     {
         CalculateMove();
+        SprintActivate();
 
         void CalculateMove()
         {
@@ -30,10 +34,29 @@ public class MoveSystemPlayer : IMoveSystem
 
             _directionMove = (directionForward + directionRight).normalized;
         }
+
+        void SprintActivate()
+        {
+            if(Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                isSprint = true;
+            }
+            else if(Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                isSprint = false;
+            }
+        }
     }
 
     public override void Move()
     {
-        _self.GetRigidbody.velocity = _directionMove * _self.moveStats.speed * Time.fixedDeltaTime;
+        float speed = _self.moveStats.speed;
+        if(isSprint)
+        {
+            speed *= _sprintMultiplier;
+        }
+        isMoving = _directionMove != Vector3.zero;
+        
+        _self.GetRigidbody.velocity = _directionMove * speed * Time.fixedDeltaTime;
     }
 }

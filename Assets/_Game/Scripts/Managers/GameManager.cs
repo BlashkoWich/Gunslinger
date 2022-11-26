@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        Application.targetFrameRate = 60;
         _managersContainer.GetPlayerManager.SpawnPlayer();
         _managersContainer.GetEnemyManager.SpawnStartEnemies();
     }

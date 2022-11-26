@@ -41,11 +41,11 @@ public class PlayerManager : MonoBehaviour
             {
                 crosshairUI.IncreaseScale();
             };
-            player.GetWeaponSightController.OnActivatSightMode += () =>
+            player.GetWeaponSightController.OnActivateSightMode += () =>
             {
                 crosshairUI.Toogle(false);
             };
-            player.GetWeaponSightController.OnDisactivatSightMode += () =>
+            player.GetWeaponSightController.OnDisactivateSightMode += () =>
             {
                 crosshairUI.Toogle(true);
             };

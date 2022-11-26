@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class WeaponSightController
 {
-    public event System.Action OnActivatSightMode;
-    public event System.Action OnDisactivatSightMode;
+    public event System.Action OnActivateSightMode;
+    public event System.Action OnDisactivateSightMode;
 
     public bool isSightMode { get; private set; }
 
@@ -14,12 +14,12 @@ public class WeaponSightController
         if(Input.GetMouseButtonDown(1))
         {
             isSightMode = true;
-            OnActivatSightMode?.Invoke();
+            OnActivateSightMode?.Invoke();
         }
         else if(Input.GetMouseButtonUp(1))
         {
             isSightMode = false;
-            OnDisactivatSightMode?.Invoke();
+            OnDisactivateSightMode?.Invoke();
         }
     }
 }
