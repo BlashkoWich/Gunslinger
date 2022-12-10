@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private ManagersContainer _managersContainer;
 
+    [SerializeField] private LevelConfig _levelConfig;
+    public LevelConfig GetLevelConfig => _levelConfig;
+
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
