@@ -17,8 +17,18 @@ public class PlayerManager : MonoBehaviour
         _managersContainer.GetVisualManager.Subscribe(player);
         _managersContainer.GetWeaponManager.Subscribe(player);
         _managersContainer.GetImpactManager.Subscribe(player);
+
+        Prepare();
         Subscribe();
 
+        void Prepare()
+        {
+            for (int i = 0; i < player.GetCameraGames.Length; i++)
+            {
+                _managersContainer.GetCameraManager.AddCamera(player.GetCameraGames[i]);
+            }
+            _managersContainer.GetCameraManager.ActivateCamera(CameraType.Hip);
+        }
         void Subscribe()
         {
             GameScreen gameScreen = _managersContainer.GetScreenManager.GetScreen<GameScreen>();
@@ -44,10 +54,12 @@ public class PlayerManager : MonoBehaviour
             player.GetWeaponSightController.OnActivateSightMode += () =>
             {
                 crosshairUI.Toogle(false);
+                _managersContainer.GetCameraManager.ActivateCamera(CameraType.Sight);
             };
             player.GetWeaponSightController.OnDisactivateSightMode += () =>
             {
                 crosshairUI.Toogle(true);
+                _managersContainer.GetCameraManager.ActivateCamera(CameraType.Hip);
             };
         }
     }

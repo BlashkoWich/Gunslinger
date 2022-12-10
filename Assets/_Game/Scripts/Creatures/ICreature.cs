@@ -7,7 +7,7 @@ public abstract class ICreature : MonoBehaviour, IVisualizable
     protected abstract ICreatureConfig GetConfig { get; }
     #region Visual
     private VisualSystem _visualSystem;
-    public VisualSystem GetVisualSystem
+    public virtual VisualSystem GetVisualSystem
     {
         get
         {

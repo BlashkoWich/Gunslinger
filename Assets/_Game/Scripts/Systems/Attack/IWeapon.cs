@@ -26,6 +26,9 @@ public class IWeapon : MonoBehaviour, IVisualizable, IPoolable
             return _visualSystem;
         }
     }
+
+    public VisualisatorWeapon GetVisualisator => (VisualisatorWeapon)GetVisualSystem.visualisator;
+
     [SerializeField]
     private Transform _visualPoint;
     public Transform GetVisualPoint => _visualPoint;

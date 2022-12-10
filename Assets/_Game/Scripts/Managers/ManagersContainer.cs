@@ -18,6 +18,8 @@ public class ManagersContainer : MonoBehaviour
     private ScreenManager _screenManager;
     [SerializeField]
     private ImpactManager _impactManager;
+    [SerializeField]
+    private CameraManager _cameraManager;
 
     public PlayerManager GetPlayerManager => _playerManager;
     public VisualManager GetVisualManager => _visualManager;
@@ -26,4 +28,5 @@ public class ManagersContainer : MonoBehaviour
     public EnemyManager GetEnemyManager => _enemyManager;
     public ScreenManager GetScreenManager => _screenManager;
     public ImpactManager GetImpactManager => _impactManager;
+    public CameraManager GetCameraManager => _cameraManager;
 }

@@ -2,10 +2,27 @@ using UnityEngine;
 
 public class Player : ICreature, IMovable, IAimable, IAttacker, IHealthable
 {
+    #region Config
     [SerializeField]
     private PlayerConfig _playerConfig;
     protected override ICreatureConfig GetConfig => _playerConfig;
+    #endregion
+    #region Visual
+    private VisualSystemPlayer _visualSystemPlayer;
+    public override VisualSystem GetVisualSystem
+    {
+        get
+        {
+            if(_visualSystemPlayer == null)
+            {
+                _visualSystemPlayer = new VisualSystemPlayer(this);
+                _visualSystemPlayer.SetWeaponSystem(GetWeaponSystem);
+            }
 
+            return _visualSystemPlayer;
+        }
+    }
+    #endregion
     #region Move
     [SerializeField]
     private Rigidbody _rigidbody;
@@ -127,6 +144,11 @@ public class Player : ICreature, IMovable, IAimable, IAttacker, IHealthable
         }
     }
     #endregion
+    #region Camera
+    [SerializeField]
+    private CameraGame[] _cameraGames;
+    public CameraGame[] GetCameraGames => _cameraGames;
+    #endregion
 
     private void Start()
     {
@@ -158,6 +180,7 @@ public class Player : ICreature, IMovable, IAimable, IAttacker, IHealthable
     private void LateUpdate()
     {
         _weaponOnPlayerMove.WeaponMove();
+        ((VisualSystemPlayer) GetVisualSystem).UpdateRig();
     }
     private void FixedUpdate()
     {

@@ -26,7 +26,7 @@ public class WeaponOnPlayerMove
 
     public void WeaponMove()
     {
-        if ((_player.GetMoveSystem as MoveSystemPlayer).isSprint && _player.GetMoveSystem.isMoving)
+        if (((MoveSystemPlayer) _player.GetMoveSystem).isSprint && _player.GetMoveSystem.isMoving)
         {
             if (_isWayToStart == false)
             {

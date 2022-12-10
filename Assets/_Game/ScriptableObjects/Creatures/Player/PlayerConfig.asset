@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7bd110febddf304099fbdd7695b142e, type: 3}
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
+  _visualisatorPrefab: {fileID: 1869745166448729879, guid: c2c7d0482682c8243b1d489a1a6e8d58, type: 3}
   _moveStats:
     speed: 100
   _aimStats:
     CamSensX: 1
     CamSensY: 1
-  _visualisatorPrefab: {fileID: 1215178257032719198, guid: e2da9df907f44b649b958f71227917f0, type: 3}
   _healthStats:
     health: 100
     maxHealth: 100

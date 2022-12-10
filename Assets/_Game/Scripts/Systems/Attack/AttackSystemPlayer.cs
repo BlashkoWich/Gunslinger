@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.Screen;
 
 public class AttackSystemPlayer : IAttackSystem
 {
@@ -30,43 +31,53 @@ public class AttackSystemPlayer : IAttackSystem
         {
             if (IsReadyToShoot)
             {
-                Vector2 shootTarget;
                 if (_aimable.GetWeaponSightController.isSightMode)
                 {
-                    shootTarget = new Vector2(Screen.width / 2, Screen.height / 2);
+                    Transform visualisatorGetAimTransform = _self.GetWeaponSystem.weapon.GetVisualisator.GetAimTransform;
+                    Vector3 startSightRay = visualisatorGetAimTransform.position;
+                    Vector3 directionSightRay = -visualisatorGetAimTransform.forward;
+                    Ray raySight = new Ray(startSightRay, directionSightRay);
+                    Debug.DrawRay(raySight.origin, raySight.direction, Color.red);
+                    RayShoot(raySight);
                 }
                 else
                 {
-                    float xCenter = Screen.width / 2;
-                    float yCenter = Screen.height / 2;
+                    float xCenter = width / 2;
+                    float yCenter = height / 2;
                     float deltaX = Random.Range(0.95f, 1.05f);
                     float deltaY = Random.Range(0.95f, 1.05f);
                     float xPosition = xCenter * deltaX;
                     float yPosition = yCenter * deltaY;
-                    shootTarget = new Vector2(xPosition, yPosition);
+                    Vector2 shootTarget = new Vector2(xPosition, yPosition);
+                    Ray rayHitMode = _camera.ScreenPointToRay(shootTarget);
+                    RayShoot(rayHitMode);
                 }
 
-                Ray ray = _camera.ScreenPointToRay(shootTarget);
-                if (Physics.Raycast(ray, out RaycastHit hit))
-                {
-                    if (hit.collider.gameObject.TryGetComponent(out IHealthable healthable))
-                    {
-                        if (healthable.healthStats.isPlayerTeam != _self.IsPlayerTeam)
-                        {
-                            healthable.GetHealthSystem.TakeDamage(_self.GetWeaponSystem.weapon.weaponStats.damage);
-                        }
-                    }
-                    else
-                    {
-                        _self.GetImpactSystem.ShootImpact(hit.point, hit.normal);
-                    }
-                }
+                
 
                 _self.GetWeaponSystem.weapon.GetWeaponAnimatorManager.Shoot();
                 RestoreCooldown();
                 MinusAmmoMagazine();
 
                 OnShoot?.Invoke();
+
+                void RayShoot(Ray ray)
+                {
+                    if (Physics.Raycast(ray, out RaycastHit hit))
+                    {
+                        if (hit.collider.gameObject.TryGetComponent(out IHealthable healthable))
+                        {
+                            if (healthable.healthStats.isPlayerTeam != _self.IsPlayerTeam)
+                            {
+                                healthable.GetHealthSystem.TakeDamage(_self.GetWeaponSystem.weapon.weaponStats.damage);
+                            }
+                        }
+                        else
+                        {
+                            _self.GetImpactSystem.ShootImpact(hit.point, hit.normal);
+                        }
+                    }
+                }
             }
         }
     }

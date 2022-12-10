@@ -13,7 +13,7 @@ public class VisualSystem
     public event Action<string> OnNeedVisual;
     public event Action<IVisualisator> OnRemoveVisualisator;
 
-    private IVisualizable _self;
+    protected IVisualizable _self;
 
     public IVisualisator visualisator { get; private set; }
 

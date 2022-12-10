@@ -8,10 +8,10 @@ public class WeaponConfig : ScriptableObject
     [SerializeField]
     private WeaponStats _weaponsStats;
     [SerializeField]
-    private IVisualisator _visualisatorPrefab;
+    private VisualisatorWeapon _visualisatorPrefab;
 
     public WeaponStats GetWeaponStats => _weaponsStats;
-    public IVisualisator GetVisualisatorPrefab => _visualisatorPrefab;
+    public VisualisatorWeapon GetVisualisatorPrefab => _visualisatorPrefab;
 }
 
 [System.Serializable]

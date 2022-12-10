@@ -4,5 +4,7 @@ using UnityEngine;
 
 public class VisualisatorPlayer : IVisualisator
 {
-
+    [SerializeField]
+    private CreatureIKTargets _creatureIKTargets;
+    public CreatureIKTargets GetCreatureIKTargets => _creatureIKTargets;
 }
